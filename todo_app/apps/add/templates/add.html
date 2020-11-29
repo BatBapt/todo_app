@@ -5,6 +5,31 @@
 
 {% block content %}
 
-<h1>Salut</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-row">
+                {% for field in add_form %}
+                    <div class="form-group col-md-12">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <p class="error"> {{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <p>
+                <button type="submit" class="btn action-btn">Ajouter une task</button>
+            </p>
+        </div>
+    </form>
 
 {% endblock %}
