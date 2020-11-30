@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 
 from .forms import AddTaskForm
 
@@ -15,7 +15,7 @@ def add_task(request):
             due_date = add_form.cleaned_data['due_date']
             category = add_form.cleaned_data['category_choice']
             category = Category.objects.get(name=category)
-            new_task = Task(title=title, content=content, due_date=due_date, category=category)
+            new_task = Task(title=title, content=content, due_date=due_date, category=category, done=False)
             new_task.save()
             return redirect(reverse('accueil'))
     else:
@@ -26,3 +26,12 @@ def add_task(request):
             'categories': categories
         }
         return render(request, 'add.html', context)
+
+
+def done_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.done = True
+    task.save()
+    return redirect(reverse('accueil'))
+
+

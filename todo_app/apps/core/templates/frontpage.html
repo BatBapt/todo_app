@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Accueil {% endblock %}
 
@@ -6,40 +7,40 @@
 
     <div class="container">
         <div class="row">
-            {% for task in tasks %}
-                <div class="col-md-4">
-                    <div class="card" id="card">
-                        [[ message ]]
-                        <div class="card-header">
-                            <h4 class="card-title">{{ task.title }}</h4>
-                            <h6 class="carde-subtitle">A faire pour le: {{ task.due_date|date:'d/m/Y' }}</h6>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                {% if task.content|length > 255 %}
-                                    {{ task.content|truncatechars:255 }}
+            {%if tasks|length > 0 %}
+                {% for task in tasks %}
+                    <div class="col-md-4">
+                        <div class="card" id="card">
+                            <div class="card-header">
+                                <h4 class="card-title">{{ task.title }}</h4>
+                                <h6 class="carde-subtitle">A faire pour le: {{ task.due_date|date:'d/m/Y' }}</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    {% if task.content|length > 255 %}
+                                        {{ task.content|truncatechars:255 }}
 
-                                    <button>Voir plus</button>
-                                    <!--
-                                    <div class="hidden">
-                                        {{ task.content|slice:"255:"}}
-                                    </div>
-                                    -->
-                                {% else %}
-                                    {{ task.content }}
-                                {% endif %}
-                            </p>
-                        </div>
-                        <div class="card-footer">
-                            <button>Done</button>
+                                        <button>Voir plus</button>
+                                        <!--
+                                        <div class="hidden">
+                                            {{ task.content|slice:"255:"}}
+                                        </div>
+                                        -->
+                                    {% else %}
+                                        {{ task.content }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-primary" href="{% url 'done_task' task.id %}">Done</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>Pas de task</p>
+            {% endif %}
         </div>
     </div>
 
-{% endblock %}
-
-{% block script %}
 {% endblock %}

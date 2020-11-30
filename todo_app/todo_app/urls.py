@@ -16,6 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from apps.core.views import frontpage
+
+from apps.task.views import add_task
+from apps.task.views import done_task
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('', frontpage, name="accueil"),
+    path('task/', add_task, name="task"),
+    path('task/done/<int:task_id>/', done_task, name="done_task")
 ]

@@ -17,12 +17,14 @@ class Task(models.Model):
 
     title = models.CharField(max_length=250)
 
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
     content = models.TextField(blank=True)
 
     created = models.DateField(blank=True, default=timezone.now)
     due_date = models.DateField(blank=True, default=timezone.now)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    done = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created']

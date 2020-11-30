@@ -1,6 +1,5 @@
 from django import forms
 import datetime
-from django.core.exceptions import ValidationError
 
 from .models import Category
 
@@ -32,8 +31,11 @@ class AddTaskForm(forms.Form):
     for category in categories:
         CATEGORY_CHOICES.append((category, category))
 
+    print(CATEGORY_CHOICES)
+
     category_choice = forms.ChoiceField(label="Categorie", required=True, choices=CATEGORY_CHOICES, widget=forms.Select(
         attrs={
             "class": "form-control",
         }
     ), error_messages=my_default_errors)
+
