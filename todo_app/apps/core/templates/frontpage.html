@@ -4,6 +4,42 @@
 
 {% block content %}
 
-<h1>Wesh</h1>
+    <div class="container">
+        <div class="row">
+            {% for task in tasks %}
+                <div class="col-md-4">
+                    <div class="card" id="card">
+                        [[ message ]]
+                        <div class="card-header">
+                            <h4 class="card-title">{{ task.title }}</h4>
+                            <h6 class="carde-subtitle">A faire pour le: {{ task.due_date|date:'d/m/Y' }}</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {% if task.content|length > 255 %}
+                                    {{ task.content|truncatechars:255 }}
 
+                                    <button>Voir plus</button>
+                                    <!--
+                                    <div class="hidden">
+                                        {{ task.content|slice:"255:"}}
+                                    </div>
+                                    -->
+                                {% else %}
+                                    {{ task.content }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <button>Done</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
 {% endblock %}
