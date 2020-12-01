@@ -26,16 +26,14 @@ class AddTaskForm(forms.Form):
                                        "type": "date",
                                    }), error_messages=my_default_errors)
 
-    categories = Category.objects.all()
-    CATEGORY_CHOICES = []
-    for category in categories:
-        CATEGORY_CHOICES.append((category, category))
 
-    print(CATEGORY_CHOICES)
+class AddCategoryForm(forms.Form):
+    name = forms.CharField(label="Nom", required=True, max_length=100, widget=forms.TextInput(attrs={
+        "class": "form-control",
+    }))
 
-    category_choice = forms.ChoiceField(label="Categorie", required=True, choices=CATEGORY_CHOICES, widget=forms.Select(
-        attrs={
-            "class": "form-control",
-        }
-    ), error_messages=my_default_errors)
-
+    color = forms.CharField(label="Couleur", required=True, widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "type": "color",
+        "value": "#e66465",
+    }))

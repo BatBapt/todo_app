@@ -15,16 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from apps.core.views import frontpage
 
-from apps.task.views import add_task
-from apps.task.views import done_task
+import apps.task.views as task_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', frontpage, name="accueil"),
-    path('task/', add_task, name="task"),
-    path('task/done/<int:task_id>/', done_task, name="done_task")
+    path('add/task/', task_views.add_task, name="task"),
+    path('add/category/', task_views.add_category, name="category"),
+    path('done/<int:task_id>/', task_views.done_task, name="done_task"),
+    path('done/', task_views.done, name="done"),
 ]

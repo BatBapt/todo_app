@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Tâches finis {% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% for task in tasks %}
+            <div class="row task">
+                <div class="col-md task-title">
+                    <p>{{ task.title }}</p>
+                </div>
+                <div class="col-md task-category">
+                    <p>{{ task.category }}</p>
+                </div>
+                <div class="col-md-6 task-content">
+                    <p>{{ task.content|truncatechars:255}}</p>
+                </div>
+                <div class="col-md task-due-date">
+                    <p>{{ task.due_date|date:'d/m/Y'}}</p>
+                </div>
+                <div class="col-md task-date-done">
+                    <p>{{ task.date_done|date:'d/m/Y'}}</p>
+                </div>
+            </div>
+            <hr/>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -3,6 +3,10 @@
 
 {% block title %} Accueil {% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'core/css/accueil.css' %}">
+{% endblock %}
+
 {% block content %}
 
     <div class="container">
@@ -10,9 +14,10 @@
             {%if tasks|length > 0 %}
                 {% for task in tasks %}
                     <div class="col-md-4">
-                        <div class="card" id="card">
+                        <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">{{ task.title }}</h4>
+                                <h5 class="card-category">{{ task.category }}</h5>
                                 <h6 class="carde-subtitle">A faire pour le: {{ task.due_date|date:'d/m/Y' }}</h6>
                             </div>
                             <div class="card-body">

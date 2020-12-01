@@ -5,6 +5,8 @@ from django.utils import timezone
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+    color = models.CharField(max_length=7, default="#FFFFFF")
+
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
@@ -17,7 +19,7 @@ class Task(models.Model):
 
     title = models.CharField(max_length=250)
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
 
     content = models.TextField(blank=True)
 
@@ -25,6 +27,8 @@ class Task(models.Model):
     due_date = models.DateField(blank=True, default=timezone.now)
 
     done = models.BooleanField(default=False)
+
+    date_done = models.DateField(blank=True, default=timezone.now)
 
     class Meta:
         ordering = ['-created']
